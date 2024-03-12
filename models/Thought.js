@@ -5,11 +5,18 @@
 // virtual reactinonCoutn that retrives length of thoughts reactions
 const mongoose = require('mongoose');
 
+const reactionSchema = new mongoose.Schema({
+    reactionId: {type: Schema.Types.ObjectId},
+    reactionBody: { type: String, max: 280 },
+    username: { type: String, required: true},
+    createdAt: {type: Date}, 
+});
+
 const thoughtSchema = new mongoose.Schema({
     thoughtText: {},
     createdAt: {type: Date,},
     username: {},
-    reactions: [],
+    reactions: reactionSchema,
 },{
     toJSON: {
         virtuals: true,
