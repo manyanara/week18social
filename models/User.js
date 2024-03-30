@@ -4,9 +4,9 @@
 // friends (array referencing usermodel using id value), 
 //virtual frindCount that retrives length of user friend array
 
-const mongoose = require('mongoose');
+const {Schema, model} = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
     username: { 
         type: String, 
         required: true, 
@@ -17,13 +17,10 @@ const userSchema = new mongoose.Schema({
         unique: true,
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email address'] },
     thoughts: [{
-        type: mongoose.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'thought'
     }],
-    friends: [{
-        type: mongoose.Types.ObjectId, // this is an object of another user's ID
-        ref: 'user'
-    }],
+    friends: [String],
 }, {
     toJSON: {
         virtuals: true,
@@ -35,8 +32,8 @@ userSchema
   .virtual('friendCount')
   .get(function () {
     return this.friends.length;
-  });
+  });  
 
-
-module.exports = mongoose.model('User', userSchema)
+const User =  model('User', userSchema)
+module.exports = User; 
 

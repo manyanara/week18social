@@ -18,7 +18,7 @@ const thoughtSchema = new mongoose.Schema({
     thoughtText: {type: String, required: true, max: 280},
     createdAt: {type: Date,},
     username: {type: mongoose.Types.ObjectId, ref: "User"},
-    reactions: reactionSchema,
+    reactions: [reactionSchema]
 },{
     toJSON: {
         virtuals: true,
@@ -34,4 +34,5 @@ thoughtSchema
   });
 
 
-  module.exports = mongoose.model('Thought', thoughtSchema)
+  const Thought = mongoose.model('Thought', thoughtSchema);
+  module.exports = Thought;
