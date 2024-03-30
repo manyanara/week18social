@@ -4,9 +4,9 @@
 // friends (array referencing usermodel using id value), 
 //virtual frindCount that retrives length of user friend array
 
-const mongoose = require('mongoose');
+const {Schema, model} = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
     username: { 
         type: String, 
         required: true, 
@@ -20,10 +20,7 @@ const userSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'thought'
     }],
-    friends: [{
-        type: Schema.Types.ObjectId, // this is an object of another user's ID
-        ref: 'user'
-    }],
+    friends: [String],
 }, {
     toJSON: {
         virtuals: true,
@@ -31,5 +28,12 @@ const userSchema = new mongoose.Schema({
     id: false,
 });
 
-module.exports = mongoose.model('User', userSchema)
+userSchema
+  .virtual('friendCount')
+  .get(function () {
+    return this.friends.length;
+  });  
+
+const User =  model('User', userSchema)
+module.exports = User; 
 
