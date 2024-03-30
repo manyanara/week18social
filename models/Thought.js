@@ -17,7 +17,15 @@ const reactionSchema = new mongoose.Schema({
 const thoughtSchema = new mongoose.Schema({
     thoughtText: {type: String, required: true, max: 280},
     createdAt: {type: Date,},
-    username: {type: mongoose.Types.ObjectId, ref: "User"},
+    username: { 
+        type: String, 
+        required: true 
+    },
+    userId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     reactions: [reactionSchema]
 },{
     toJSON: {
