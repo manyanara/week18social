@@ -15,4 +15,5 @@ router.route('/:userId').get(getSingleUser);
 // /api/users/:userId/friends/:friendId
 router.route('/:userId/friends/:friendId').get(getSingleUser).post(addFriend);
 
+
 module.exports = router;

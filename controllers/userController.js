@@ -45,7 +45,7 @@ module.exports = {
     try{
         const user = await User.findOneAndUpdate(
           { _id: req.body.userId },
-          { $addToSet: { friends: friends._id } },
+          { $addToSet: { friends: req.body.username } },
           { new: true }
         );
         if (!user) {
