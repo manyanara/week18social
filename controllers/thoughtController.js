@@ -97,6 +97,7 @@ module.exports = {
         { $pull: {reactions: {reactionId : req.params.reactionId}}},
         {runValidators: true, new: true}
       );
+      res.json("deleted reaction!")
     } catch(err){
       console.log(err); return res.status(500).json(err);
     }
